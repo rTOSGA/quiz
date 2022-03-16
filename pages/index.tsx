@@ -6,21 +6,20 @@ import Botao from "../components/Botao";
 import Questionario from "../components/Questionario";
 import { useRouter } from "next/router";
 
-const BASE_URL = "http://localhost:3000/api";
 
-export const getServerSideProps = async () => {
-  const resp = await fetch(`${BASE_URL}/questionario`);
-  const idsDasQuestoes = await resp.json();
-};
+
 
 export default function Home() {
+  const BASE_URL = "http://localhost:3000/api";
   const router = useRouter();
 
   const [idsDasQuestoes, setIdsDasQuestoes] = useState<number[]>([]);
   const [questao, setQuestao] = useState<QuestaoModel>();
   const [respostasCertas, setRespostasCertas] = useState<number>(0);
 
-  function carregarIdsDasQuestoes() {
+  async function carregarIdsDasQuestoes() {
+    const resp = await fetch(`${BASE_URL}/questionario`);
+  const idsDasQuestoes = await resp.json();
     setIdsDasQuestoes(idsDasQuestoes);
   }
 
