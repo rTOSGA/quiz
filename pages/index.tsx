@@ -8,6 +8,11 @@ import { useRouter } from "next/router";
 
 const BASE_URL = "http://localhost:3000/api";
 
+export const getServerSideProps = async () => {
+  const resp = await fetch(`${BASE_URL}/questionario`);
+  const idsDasQuestoes = await resp.json();
+};
+
 export default function Home() {
   const router = useRouter();
 
@@ -15,15 +20,13 @@ export default function Home() {
   const [questao, setQuestao] = useState<QuestaoModel>();
   const [respostasCertas, setRespostasCertas] = useState<number>(0);
 
-  async function carregarIdsDasQuestoes() {
-    const resp = await fetch(`${BASE_URL}/questionario`);
-    const idsDasQuestoes = await resp.json();
+  function carregarIdsDasQuestoes() {
     setIdsDasQuestoes(idsDasQuestoes);
   }
 
   async function carregarQuestao(idQuestao: number) {
-    const resp = await fetch(`${BASE_URL}/questoes/${idQuestao}`);
-    const dadosQuestao = await resp.json();
+    const resp2 = await fetch(`${BASE_URL}/questoes/${idQuestao}`);
+    const dadosQuestao = await resp2.json();
     const novaQuestao = QuestaoModel.criarUsandoObjeto(dadosQuestao);
     setQuestao(novaQuestao);
   }
