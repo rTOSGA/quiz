@@ -7,10 +7,13 @@ import Questionario from "../components/Questionario";
 import { useRouter } from "next/router";
 
 
+  
+
+ 
 
 
 export default function Home() {
-  const BASE_URL = "http://localhost:3000/api";
+  const BASE_URL = "https://quiz-two-lac.vercel.app/api";
   const router = useRouter();
 
   const [idsDasQuestoes, setIdsDasQuestoes] = useState<number[]>([]);
